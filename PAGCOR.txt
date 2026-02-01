@@ -1,0 +1,52 @@
+PAGCOR
+VLAN 88
+
+
+
+
+@D1core
+
+config t
+vlan 88
+ name PAGCOR.com
+ exit
+ 
+Int vlan 88
+ no shut
+ ip add 10.0.4.101 255.255.252.0
+ip dhcp excluded-add 10.0.4.101 10.0.4.100
+ip dhcp pool PAGCOR.com
+ network 10.0.4.100 255.255.252.0
+ default-router 10.0.4.101
+ domain-name PAGCOR.com
+ dns-server 10.12.1.10
+ option 150 ip 10.12.100.8
+ end
+ 
+ PC1:
+ conf t
+ Int e0/0
+ no shut
+ ip add dhcp 
+ do bp
+ end
+ 
+ @A1access
+ config t
+ Int e0/0
+  swi switchport access vlan 88
+  do sh vlan brief
+  end
+  
+   @A1access
+ config t
+ Int e0/0
+  swi access vlan 88
+  do sh vlan brief
+  end
+  
+  
+===
+
+
+ACCENTURE 350 Users

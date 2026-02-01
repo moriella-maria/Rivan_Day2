@@ -1,0 +1,27 @@
+CSR1KV
+- NET 2 = Bridged Replicate
+
+!@UTM
+conf t
+ int g1
+  ip add 208.8.8.11 255.255.255.0
+  no shut
+ int g2
+  no shut
+  ip add 10.#$34t#.1.11 255.255.255.0
+ int g3
+  no shut
+  ip add 11.11.11.100 255.255.255.224
+  exit
+ ip route 0.0.0.0 0.0.0.0 208.8.8.2
+ ip route 10.0.0.0 255.0.0.0 10.#$34t#.1.4
+ ip route 200.0.0.0 255.255.255.0 10.#$34t#.1.4
+ ip name-server 8.8.8.8 1.1.1.1
+ ip domain lookup
+ !
+ no int tunnel 1
+ no ip route 21.21.21.208 255.255.255.240
+ no ip route 22.22.22.192 255.255.255.192
+ end
+
+

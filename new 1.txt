@@ -1,0 +1,6 @@
+<directories realtime="yes" check_all="yes" report_changes="yes">C:\Users\Administrator\Desktop\mykad3</directories>
+
+
+ftk imager 
+forensics
+autopsy kalilinux

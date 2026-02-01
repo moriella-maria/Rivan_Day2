@@ -1,0 +1,94 @@
+1. 4500 users = 13 bits
+
+2. \32 - \13 = \19 bits
+8 8 5 0
+
+3. ipasok 32i sa 3rd hiwa
+• your IP: 10.0.32.0/19
+• 1st IP: 10.0.32.1
+• last IP: 10.0.63.255
+• not yours: 10.0.64.0/19
+
+
+
+@D1core
+
+Realworld practical implementation
+TemPlate_CoreSW:
+
+config t
+vlan 25
+ name GOOGLECLOUD.com
+ exit
+Int vlan 25
+ no shut
+ ip add 10.0.32.1 255.255.224.0
+ip dhcp excluded-add 10.0.32.1 10.0.32.100
+ip dhcp pool GOOGLECLOUD.com
+ network 10.0.32.0 255.255.224.0
+ default-router 10.0.32.1
+ domain-name GOOGLECLOUD.com
+ dns-server 10.12.1.10
+ option 150 ip 10.12.100.8
+ end
+ 
+ PC1:
+ config t
+ Int e0/0
+ no shut
+ ip add dhcp 
+ do bp
+
+ end
+ 
+ @A1access
+ config t
+ Int e0/0
+  swi switchport access vlan 25
+  do sh vlan brief
+  
+   @A1access
+ config t
+ Int e0/0
+  swi access vlan 25
+  do sh vlan brief
+  end
+  
+  
+====
+/20 PNG
+
+
+config t
+vlan 26
+ name PNG.com
+ exit
+Int vlan 26
+ no shut
+ ip add 10.0.16.1 255.255.240.0
+ip dhcp excluded-add 10.0.16.1 10.0.16.100
+ip dhcp pool PNG.com
+ network 10.0.16.0 255.255.240.0
+ default-router 10.0.16.1
+ domain-name PNG.com
+ dns-server 10.12.1.10
+ option 150 ip 10.12.100.8
+ end
+ 
+  @A2access
+ config t
+ Int e1/0
+  swi access vlan 26
+  do sh vlan brief
+end
+
+ PC2:
+ config t
+ Int e1/0
+ no shut
+ ip add dhcp 
+ do bp
+ end
+ 
+ show ip int brief | ex una
+ 
