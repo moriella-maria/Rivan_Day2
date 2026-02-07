@@ -19,16 +19,16 @@ next network 10.0.4.0
 @D1
 config t
  vlan 69
-  name ACCENTURE
+  name Accenture
   exit
  int vlan 69
   no shut
   ip add 10.0.2.1 255.255.254.0
   ip dhcp excluded-add 10.0.2.1 10.0.2.100
-  ip dhcp pool ACCENTURE
+  ip dhcp pool Accenture
   network 10.0.2.0 255.255.254.0
   default-router 10.0.2.1
-  domain-name ACCENTURE
+  domain-name Accenture
   dns-server 10.11.1.10
   option 150 ip 10.11.100.8
 end
@@ -67,16 +67,16 @@ broadcast: 10.0.1.255
 @D1
 config t
  vlan 669
-  name COMELEC
+  name Comelec
   exit
  int vlan 669
   no shut
   ip add 10.0.1.1 255.255.255.0
   ip dhcp excluded-add 10.0.1.1 10.0.1.100
-  ip dhcp pool COMELEC
+  ip dhcp pool Comelec
   network 10.0.1.0 255.255.255.0
   default-router 10.0.1.1
-  domain-name COMELEC
+  domain-name Comelec
   dns-server 10.11.1.10
   option 150 ip 10.11.100.8
 end
@@ -113,34 +113,39 @@ default router: 10.0.0.33
 broadcast: 10.0.0.63
 
 @D2
+
 config t
  vlan 443
-  name TelusSOC
-  exit
- int vlan 443
-  no shut
-  ip add 10.0.0.32 255.255.255.224
-  ip dhcp exclude-add 10.0.0.33 10.0.0.40
-  ip dhcp pool TelusSOC
-  network 10.0.0.32 255.255.255.224
-  default-router 10.0.0.33
-  domain-name TelusSOC
-  dns-server 10.11.1.10
-  option 150 ip 10.11.100.8
+  name Telussoc
+ exit
 
- int e1/0
-  switch access vlan 443
-  do sh vlan brief
-  end
+interface vlan 443
+ ip address 10.0.0.33 255.255.255.224
+ no shutdown
+exit
 
+ip dhcp excluded-address 10.0.0.33 10.0.0.35
+
+ip dhcp pool Telussoc
+ network 10.0.0.32 255.255.255.224
+ default-router 10.0.0.33
+ domain-name Telussoc
+ dns-server 10.11.1.10
+ option 150 ip 10.11.100.8
+exit
+
+interface e1/0
+ switchport mode access
+ switchport access vlan 443
+end
+  
 @S2
 conf t
  int e1/0
   no shut
   ip add dhcp
-  do bp
-
-
+end
+show ip int brief | ex una
 
 
 
