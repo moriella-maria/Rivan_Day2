@@ -151,13 +151,16 @@ show ip int brief | ex una
 ==========
 
 
-Review:
+◘ Review 1:
 Using 10.0.0.0/8, compute for the design for sykes.com using CSI:
 
      1500 Users                                 4500 Users                         200 Users
 C:   11b                                        13b                                8b
 S:   /32-11 = /21                               /32-13 = /19                       /32-8 = /24
 I:   10.0.8.0/8                                 10.0.32.0/8                        10.0.1.0/8
+
+◘ Review 2:
+Design a network with maximized to 16 iffuces/subnets/sites
 
 
 
